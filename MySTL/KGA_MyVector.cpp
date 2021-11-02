@@ -8,27 +8,54 @@ KGA_MyVector::KGA_MyVector(size_t count)
 		_container[i] = 0;
 	}
 }
-
+// 복사 생성자, 깊은 복사
 KGA_MyVector::KGA_MyVector(const KGA_MyVector& other)
+	: _container{ new int[other._capacity] }, _size{ other._size }, _capacity{ other._capacity }
 {
+	for (int i = 0; i < other.size(); i++)
+	{
+		_container[i] = other[i];	// 할당 연산자 써서 가능
+	}
 }
-
+// 할당 연산자, 깊은 복사
 KGA_MyVector& KGA_MyVector::operator=(const KGA_MyVector& rhs)
 {
-	// TODO: 여기에 return 문을 삽입합니다.
+	// 자가할당 막기 (ex:  a = a)
+	if (this != &rhs)
+	{
+		KGA_MyVector temp(rhs);
+		std::swap(_container, temp._container);
+		std::swap(_size, temp._size);
+		std::swap(_capacity, temp._capacity);
+	}
+	return *this;
 }
-
+// 이동 생성자 
 KGA_MyVector::KGA_MyVector(KGA_MyVector&& other)
+	: _container{ other._container },
+	_size{ other._size },
+	_capacity{ other._capacity }
 {
+	other._container = nullptr;
+	other._size = 0;
+	other._capacity = 0;
 }
-
+// 이동 할당 연산자
 KGA_MyVector& KGA_MyVector::operator=(KGA_MyVector&& other)
 {
-	// TODO: 여기에 return 문을 삽입합니다.
+	if (this != &other)
+	{
+		KGA_MyVector temp(std::move(other));
+		std::swap(_container, temp._container);
+		std::swap(_size, temp._size);
+		std::swap(_capacity, temp._capacity);
+	}
+	return *this;
 }
 
 KGA_MyVector::~KGA_MyVector()
 {
+	clear();
 }
 
 int* KGA_MyVector::begin()

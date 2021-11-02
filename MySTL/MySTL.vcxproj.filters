@@ -13,10 +13,27 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="KGA">
+      <UniqueIdentifier>{f73063bc-dd31-4993-ad56-a636b4974363}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MY">
+      <UniqueIdentifier>{d33d1cd7-7b05-45cc-a604-bae660d1e1ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KGA\Vector">
+      <UniqueIdentifier>{ae54a1c2-83fb-48f6-ad64-9cf992457a9c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MySTL.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="KGA_MyVector.cpp">
+      <Filter>KGA\Vector</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="KGA_MyVector.h">
+      <Filter>KGA\Vector</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

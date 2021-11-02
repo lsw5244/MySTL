@@ -139,7 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="KGA_MyVector.cpp" />
     <ClCompile Include="MySTL.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="KGA_MyVector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
