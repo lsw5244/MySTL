@@ -28,7 +28,7 @@ public:
 
     // count만큼의 요소를 갖고 있는 컨테이너를 만드는 생성자
     explicit DoubleLinkedList(size_t count)
-        : DoubleLinkedList()
+       // : DoubleLinkedList()
     {
         for (int i = 0; i < count; ++i)
         {
@@ -38,7 +38,7 @@ public:
 
     // 복사 생성자. (값 복사하기)
     DoubleLinkedList(const DoubleLinkedList& other)
-        : DoubleLinkedList()
+       // : DoubleLinkedList()
         //: _end{other._end}, _head{other._head}, _size{other._size}
     {
         for (auto iter = other.begin(); iter != other.end(); ++iter)
@@ -62,7 +62,16 @@ public:
     }
 
     // 소멸자
-    ~DoubleLinkedList();
+    ~DoubleLinkedList()
+    {
+        clear();
+        _end = nullptr;
+        _head = nullptr;
+        _size = {};
+     /*   Node* _end;
+        Node* _head;
+        size_t          _size;*/
+    }
 
     // 첫 번째 요소를 반환한다.
     int& front()
@@ -140,7 +149,7 @@ public:
         */
         
         Node* newNode = new Node(value);
-        if (pos->Prev == nullptr)  // pos가 제일 head일 때 예외처리
+        if (/*pos->Prev == nullptr*/pos == _head)  // pos가 제일 head일 때 예외처리
         {
             newNode->Prev = nullptr;
             newNode->Next = pos;
