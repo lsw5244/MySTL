@@ -11,12 +11,11 @@ int main()
 
     DoubleLinkedList dl;
     dl.push_front(1);
-    dl.push_front(2);
-    dl.push_front(3);
 
-    for (auto i = dl.begin(); i != dl.end();)
+    for (auto i = dl.begin(); i != dl.end(); )
     {
         cout << i->Data << endl;
+        i = i->Next;
     }
 
 

@@ -38,7 +38,7 @@ public:
 
     // 복사 생성자. (값 복사하기)
     DoubleLinkedList(const DoubleLinkedList& other)
-       // : DoubleLinkedList()
+        : DoubleLinkedList()
         //: _end{other._end}, _head{other._head}, _size{other._size}
     {
         for (auto iter = other.begin(); iter != other.end(); ++iter)
@@ -67,10 +67,8 @@ public:
         clear();
         _end = nullptr;
         _head = nullptr;
-        _size = {};
-     /*   Node* _end;
-        Node* _head;
-        size_t          _size;*/
+        _size = 0;
+
     }
 
     // 첫 번째 요소를 반환한다.
@@ -162,6 +160,7 @@ public:
             pos->Prev->Next = newNode;
             pos->Prev = newNode;
         }
+
         if (pos == _head) // 헤드 변경
         {
             _head = newNode;
@@ -211,7 +210,10 @@ public:
     }
 
     // 끝에 value를 삽입한다.
-    void            push_back(int value);
+    void            push_back(int value)
+    {
+        insert(_end, value);
+    }
 
     // 시작 요소를 제거한다.
     void            pop_front()
@@ -267,7 +269,8 @@ public:
 private:
     // 첫번째 노드의 prev = nullptr, next는 다음 노드의 주소
     // _end에는 직접적인 값이 들어있지 않음(제일 끝의 다음 주소)
-    Node*         _end;
-    Node*         _head;        
-    size_t          _size;
+    Node*         _end = new Node;
+    Node*         _head = _end;        
+    size_t          _size = 0;
 };
+
