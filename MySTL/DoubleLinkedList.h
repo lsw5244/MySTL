@@ -246,7 +246,7 @@ public:
     // 컨테이너를 비워버린다.
     void            clear()
     {
-        while (_size <= 0/* empty() == true*/)
+        while (_size != 0 /*empty() == false*/)
         {
             pop_front();
         }

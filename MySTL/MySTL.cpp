@@ -27,7 +27,16 @@ int main()
     }
 
     cout << dl.size() << endl;
+    cout << boolalpha << dl.contains(2) << endl;
 
+    cout << "CLEAR !" << endl;
+    dl.clear();
+    dl.push_front(3);
+    for (auto i = dl.begin(); i != dl.end(); )
+    {
+        cout << i->Data << endl;
+        i = i->Next;
+    }
     //DoubleLinkedList mList(5);
     /*for (auto iter = mList.begin(); iter != mList.end(); ++iter)
     {
