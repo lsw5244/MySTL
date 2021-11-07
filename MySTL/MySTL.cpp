@@ -9,7 +9,7 @@ int main()
 {
     KGA_MyVector mv(5);
 
-    DoubleLinkedList dl(5);
+    DoubleLinkedList dl;
     //dl.pop_back();
     dl.push_front(1);
     dl.push_front(2);
@@ -26,6 +26,7 @@ int main()
         i = i->Next;
     }
 
+    cout << dl.size() << endl;
 
     //DoubleLinkedList mList(5);
     /*for (auto iter = mList.begin(); iter != mList.end(); ++iter)

@@ -198,7 +198,7 @@ public:
 
         delete pos;
         pos = nullptr;
-
+        --_size;
         return nextNode;
         
     }
