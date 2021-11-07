@@ -125,14 +125,47 @@ public:
             pos->Prev->Next = newNode;
             pos->Prev = newNode;
         }
+        if (pos == _head) // 헤드 변경
+        {
+            _head = newNode;
+        }
+
         ++_size;
         return newNode;
     }
 
-    // pos 다음 요소를 삭제한다.
+    // pos 요소를 삭제한다.
     // 삭제된 요소의 다음 요소를 가리키는 반복자를 반환한다.
     // 아무 요소도 없으면 end()를 반환한다.
-    Node* erase(Node* pos);
+    Node* erase(Node* pos)
+    {
+        if (_size == 0)
+        {
+            return end();
+        }
+        Node* prevNode = pos->Prev;
+        Node* nextNode = pos->Next;
+
+        if (prevNode != nullptr)
+        {
+            prevNode->Next = nextNode;
+        }
+        if (nextNode != nullptr)
+        {
+            nextNode->Prev = prevNode;
+        }
+
+        if (pos == _head)       // 지우려는 노드가 첫번째 노드일 때 헤드 변경
+        {
+            _head = nextNode;       
+        }
+
+        delete pos;
+        pos = nullptr;
+
+        return nextNode;
+        
+    }
 
     // 시작에 value를 삽입한다.
     void            push_front(int value);
