@@ -15,9 +15,9 @@ public:
             Prev = nullptr;
         }
 
-        int     Data;
-        Node* Next;
-        Node* Prev;
+        int     Data;   // 실제 들어있는 데이터
+        Node* Next; // 다음 노드의 주소
+        Node* Prev; // 이전 노드의 주소
     };
 
 public:
@@ -37,25 +37,97 @@ public:
     ~DoubleLinkedList();
 
     // 첫 번째 요소를 반환한다.
-    int& front();
-    const int& front() const;
+    int& front()
+    {
+        return _head->Data;
+    }
+    const int& front() const
+    {
+        return _head->Data;
+    }
 
     // 마지막 요소를 반환한다.
-    int& back();
-    const int& back() const;
+    int& back()
+    {
+        return _end->Prev->Data;
+    }
+    const int& back() const
+    {
+        return _end->Prev->Data;
+    }
 
     // 시작 요소를 가리키는 반복자를 반환한다.
     // 리스트가 비어있다면 end()와 같다.
-    Node* begin();
-    const Node* begin() const;
+    Node* begin()
+    {
+        if (_size == 0)
+        {
+            return _end;
+        }
+        else
+        {
+            return _head;
+        }
+    }
+    const Node* begin() const
+    {
+        if (_size == 0)
+        {
+            return _end;
+        }
+        else
+        {
+            return _head;
+        }
+    }
 
     // 끝 다음 요소를 가리키는 반복자를 반환한다.
-    Node* end();
-    const Node* end() const;
+    Node* end()
+    {
+        return _end;
+    }
+    const Node* end() const
+    {
+        return _end;
+    }
 
-    // pos 다음에 value를 삽입한다.
+    // pos 이전에 value를 삽입한다.
     // 삽입된 요소를 가리키는 반복자를 반환한다.
-    Node* insert(Node* pos, int value);
+    Node* insert(Node* pos, int value)
+    {
+        // []  []  []  []
+        // []  []  [o] [] []
+        /*
+            할 일
+            1. value값을 가진 새로운 노드 생성
+            2. 새로운 노드를 끼워줘야함
+            new.next = pos
+            new.prev = pos.prev
+            pos.prev.next = new
+            pos.prev = new
+            ---제일 처음에 노드 추가 할 때---
+            new.prev = nullptr
+            new.next = pos
+            pos.prev = new
+        */
+        
+        Node* newNode = new Node(value);
+        if (pos->Prev == nullptr)  // pos가 제일 head일 때 예외처리
+        {
+            newNode->Prev = nullptr;
+            newNode->Next = pos;
+            pos->Prev = newNode;
+        }
+        else
+        {
+            newNode->Next = pos;
+            newNode->Prev = pos->Prev;
+            pos->Prev->Next = newNode;
+            pos->Prev = newNode;
+        }
+        ++_size;
+        return newNode;
+    }
 
     // pos 다음 요소를 삭제한다.
     // 삭제된 요소의 다음 요소를 가리키는 반복자를 반환한다.
@@ -75,10 +147,20 @@ public:
     void            pop_back();
 
     // 컨테이너가 비었는지 판단한다.
-    bool            empty() const;
+    bool            empty() const
+    {
+        if (_size == 0)
+        {
+            return true;
+        }
+        return false;
+    }
 
     // 리스트 안에 있는 요소의 개수를 반환한다.
-    size_t          size() const;
+    size_t          size() const
+    {
+        return _size;
+    }
 
     // 컨테이너를 비워버린다.
     void            clear();
@@ -86,7 +168,9 @@ public:
     // 해당 value가 있는지 체크한다.
     bool            contains(int value) const;
 private:
-    Node* _end;
-    Node* _head;
+    // 첫번째 노드의 prev = nullptr, next는 다음 노드의 주소
+    // _end에는 직접적인 값이 들어있지 않음(제일 끝의 다음 주소)
+    Node*         _end;
+    Node*         _head;        
     size_t          _size;
 };
