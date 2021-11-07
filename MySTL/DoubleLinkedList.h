@@ -4,10 +4,16 @@ class DoubleLinkedList
 public:
     struct Node
     {
-        Node(int data = 0, Node* prev = nullptr, Node* next = nullptr);
+        Node(int data = 0, Node* prev = nullptr, Node* next = nullptr)
+            :Data(data), Prev(prev), Next(next) {}
         Node(const Node&) = delete;
         Node& operator=(const Node&) = delete;
-        ~Node();
+        ~Node()
+        {
+            //Data = {};
+            Next = nullptr;
+            Prev = nullptr;
+        }
 
         int     Data;
         Node* Next;

@@ -22,6 +22,9 @@
     <Filter Include="KGA\Vector">
       <UniqueIdentifier>{ae54a1c2-83fb-48f6-ad64-9cf992457a9c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="KGA\DoubleLinkedList">
+      <UniqueIdentifier>{37e31660-7cbb-4576-99c0-2660c18c2816}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MySTL.cpp">
@@ -30,10 +33,16 @@
     <ClCompile Include="KGA_MyVector.cpp">
       <Filter>KGA\Vector</Filter>
     </ClCompile>
+    <ClCompile Include="DoubleLinkedList.cpp">
+      <Filter>KGA\DoubleLinkedList</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KGA_MyVector.h">
       <Filter>KGA\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="DoubleLinkedList.h">
+      <Filter>KGA\DoubleLinkedList</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
