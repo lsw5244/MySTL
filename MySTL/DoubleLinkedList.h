@@ -224,7 +224,7 @@ public:
     // 끝 요소를 제거한다.
     void            pop_back()
     {
-        erase(_end);
+        erase(_end->Prev);
     }
 
     // 컨테이너가 비었는지 판단한다.
