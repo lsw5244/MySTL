@@ -1,4 +1,6 @@
 #pragma once
+#include <algorithm>
+
 class DoubleLinkedList
 {
 public:
@@ -25,13 +27,39 @@ public:
     DoubleLinkedList() = default;
 
     // count만큼의 요소를 갖고 있는 컨테이너를 만드는 생성자
-    explicit DoubleLinkedList(size_t count);
+    explicit DoubleLinkedList(size_t count)
+        : DoubleLinkedList()
+    {
+        for (int i = 0; i < count; ++i)
+        {
+            push_front(0);
+        }
+    }
 
-    // 복사 생성자.
-    DoubleLinkedList(const DoubleLinkedList& other);
+    // 복사 생성자. (값 복사하기)
+    DoubleLinkedList(const DoubleLinkedList& other)
+        : DoubleLinkedList()
+        //: _end{other._end}, _head{other._head}, _size{other._size}
+    {
+        for (auto iter = other.begin(); iter != other.end(); ++iter)
+        {
+            push_back(iter->Data);
+        }
+    }
 
     // 할당 연산자
-    DoubleLinkedList& operator=(const DoubleLinkedList& rhs);
+    DoubleLinkedList& operator=(const DoubleLinkedList& rhs)
+        //: DoubleLinkedList()
+    {
+        if (this != &rhs)   // 자가 자신 할당 막기
+        {
+            DoubleLinkedList temp = rhs;
+            std::swap(_head, temp._head);
+            std::swap(_end, temp._end);
+            std::swap(_size, temp._size);
+        }
+        return *this;
+    }
 
     // 소멸자
     ~DoubleLinkedList();
@@ -168,16 +196,25 @@ public:
     }
 
     // 시작에 value를 삽입한다.
-    void            push_front(int value);
+    void            push_front(int value)
+    {
+        insert(_head, value);
+    }
 
     // 끝에 value를 삽입한다.
     void            push_back(int value);
 
     // 시작 요소를 제거한다.
-    void            pop_front();
+    void            pop_front()
+    {
+        erase(_head);
+    }
 
     // 끝 요소를 제거한다.
-    void            pop_back();
+    void            pop_back()
+    {
+        erase(_end);
+    }
 
     // 컨테이너가 비었는지 판단한다.
     bool            empty() const
@@ -196,10 +233,28 @@ public:
     }
 
     // 컨테이너를 비워버린다.
-    void            clear();
+    void            clear()
+    {
+        while (_size <= 0/* empty() == true*/)
+        {
+            pop_front();
+        }
+    }
 
     // 해당 value가 있는지 체크한다.
-    bool            contains(int value) const;
+    bool            contains(int value) const
+    {
+        Node* nowNode = _head;
+        while (nowNode != end())
+        {
+            if (nowNode->Data == value)
+            {
+                return true;
+            }
+            nowNode = nowNode->Next;
+        }
+        return false;
+    }
 private:
     // 첫번째 노드의 prev = nullptr, next는 다음 노드의 주소
     // _end에는 직접적인 값이 들어있지 않음(제일 끝의 다음 주소)
