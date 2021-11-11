@@ -127,7 +127,61 @@ public:
 
     // pos 다음 요소를 삭제한다.
     // 삭제된 요소의 다음 요소를 가리키는 반복자를 반환한다.
-    Node* erase_after(Node* pos);
+    Node* erase_after(Node* pos)
+    {
+        /*
+            예외사항
+            1. 리스트가 비어있을 때  == tail리턴하기
+            2. 원소가 하나밖에 없을 떼  == 초기 상태로 돌려주기(beforeHead->next초기화)
+            3. 원소가 2개일 때              == head의 next를 head로 변경, beforeTail을 beforeHead로 변경
+            4. tail을 제거하려 할 때               == beforeTail당겨주기
+            5. beforeTail을 제거하려 할 떄     == beforeTail 당겨주기
+            6. 처음 부분(head)이 제거될 때       == tail의 next변경하기
+
+            7. 연결 끊어주기
+        */
+        if (empty())
+        {
+            return tail();
+        }
+
+        Node* removeNode = pos->Next;
+        if (head()->Next == head())     // 원소 하나일 때
+        {
+            before_head()->Next = nullptr;
+        }
+        else if (_beforeTail == head())     // 원소 2개일 때
+        {
+            before_head()->Next = removeNode->Next;
+            _beforeTail = before_head();
+            head()->Next = head();
+        }
+        else if (pos == before_tail())  // tail을 지우려 할 떄
+        {
+            _beforeTail->Next = removeNode->Next;
+            do
+            {
+                _beforeTail = _beforeTail->Next;
+            } while (tail()->Next != head());
+        }
+        else if (pos->Next = before_tail()) // beforeTail을 지우려 할 떄
+        {
+            pos->Next = removeNode->Next;
+            _beforeTail = pos;
+        }
+        else if (pos->Next == head())    // 첫 부분(head)가 제거될 때
+        {
+            before_head()->Next = removeNode->Next;
+            tail()->Next = removeNode->Next;
+        }
+        else    // 일반적인 삭제  (노드 이어주기)
+        {
+            pos->Next = removeNode->Next;
+        }
+
+
+        return removeNode;
+    }
 
     // 시작 요소에 value를 삽입한다.
     void      push_front(int value)
