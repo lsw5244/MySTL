@@ -89,7 +89,41 @@ public:
 
     // pos 다음에 value를 삽입한다.
     // 삽입된 요소를 가리키는 반복자를 반환한다.
-    Node* insert_after(Node* pos, int value);
+    Node* insert_after(Node* pos, int value)
+    {
+        /*
+            예외상황
+            1. 첫 번째(처음) 원소가 삽입될 때       ==  삽입된 노드의 Next는 자기 자신이어야 함
+            2. 두 번째 원소가 삽입될 때       == _beforeTail의 위치를 옮겨줘야 함
+            3. pos가 beforeTail || tail일 때 == beforeTail을 미뤄 줘야함(beforeTail = beforeTail->Next)
+            4. 첫부분(head)에 원소가 삽입될 때(pos가 beforeTail일 때)     ==  tail의 next를 바꿔주어야 함
+        */
+        Node* newNode = new Node(value);
+        newNode->Next = pos->Next;
+        pos->Next = newNode;
+
+        if (head() == nullptr)  // 아무것도 없을 때(원소가 처음 삽입됨)
+        {
+            //before_head()->Next = newNode;
+            newNode->Next = newNode;
+        }
+        else if (before_head() == before_tail())    // 두 번째 원소가 삽입됨
+        {
+            _beforeTail = head();
+            tail()->Next = head();
+        }
+        else if (pos == before_tail() || pos == tail())  //pos가 beforeTail || tail일 때       beforeTail한 칸 밀어주기
+        {
+            _beforeTail = _beforeTail->Next;
+            //tail()->Next = head();
+        }
+        else if (pos == before_head()) //첫부분(head)에 원소가 삽입될 때(pos == beforehead)
+        {
+            tail()->Next = head();
+        }
+
+        return newNode;
+    }
 
     // pos 다음 요소를 삭제한다.
     // 삭제된 요소의 다음 요소를 가리키는 반복자를 반환한다.
