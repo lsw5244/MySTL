@@ -139,11 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CircularSingleLinkedList.cpp" />
     <ClCompile Include="DoubleLinkedList.cpp" />
     <ClCompile Include="KGA_MyVector.cpp" />
     <ClCompile Include="MySTL.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CircularSingleLinkedList.h" />
     <ClInclude Include="DoubleLinkedList.h" />
     <ClInclude Include="KGA_MyVector.h" />
   </ItemGroup>
