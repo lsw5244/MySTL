@@ -161,16 +161,22 @@ public:
 			if (pos->Left == nullptr)	// 오른족 자식만 있을 때
 			{
 				_root = pos->Right;		// 루트 노드 변경하기
+				_root->Parent = nullptr;	// 부모 노드 없애기
+
 				delete pos;
 				pos = nullptr;
+
 				--_size;
 				return;
 			}
 			else if (pos->Right == nullptr) // 왼쪽 자식만 있을 때
 			{
-				_root = pos->Left;
+				_root = pos->Left;			// 루트 노드 변경
+				_root->Parent = nullptr;	// 부모 노드 없애기
+
 				delete pos;
 				pos = nullptr;
+
 				--_size;
 				return;
 			}
@@ -187,6 +193,8 @@ public:
 			swap(successor->Data, _root->Data); // 데이터 교환
 
 			erase(successor);	// successor삭제
+
+			return;
 		}
 		/*------------------------------------*/
 		/*------------------------------------*/
