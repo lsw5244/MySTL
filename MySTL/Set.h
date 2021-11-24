@@ -37,6 +37,7 @@ public:
 	// 너비우선(BFS)
 	int height() const
 	{
+		// 비어있을 때 -1 반환
 		if (empty())
 		{
 			return -1;
@@ -94,7 +95,7 @@ public:
 	}
 
 	// 삽입
-	// pari<삽입 된 위치를 가르키는 반복자, 삽입이 되었는지>
+	// pair<삽입 된 위치를 가르키는 반복자, 삽입이 되었는지>
 	pair<Node*, bool> insert(int value)
 	{
 		if (empty())	// 루트가 없을 때( 트리가 비어있을 때)
@@ -106,12 +107,13 @@ public:
 
 		Node* inserted = _root;			// 어디다 삽입 할 지(삽입 될 위치)
 		Node* parent = nullptr;	// 삽입할 노드의 부모
-		// 삽입 할 위치 찾기
+
+		// 삽입 할 위치 찾기 ( nullptr노드를 찾을 때 까지 반복 )
 		while (inserted)
 		{
 			parent = inserted;
 
-			if (inserted->Data == value)	// set의 value는 유일하기 때문에 같은 값을 발견하면 삽입하지 않는다.
+			if (inserted->Data == value)	// set의 value는 유일해야 하기 때문에 같은 값을 발견하면 삽입하지 않는다.
 			{
 				return make_pair(inserted, false);
 			}
@@ -127,7 +129,7 @@ public:
 
 		inserted = new Node(value, parent); // 삽입 될 위치에 노드 생성
 
-		if (parent->Data > value)	// 부모 한번 더 검증 ?
+		if (parent->Data > value)	// 부모의 왼쪽에 넣을 지 오른쪽에 넣을 지 확인
 		{
 			parent->Left = inserted;
 		}
@@ -153,7 +155,7 @@ public:
 		// 루트 노드를 삭제할 때
 		if (pos->Parent == nullptr)
 		{
-			// 자식 없을 때
+			// 자식 없을 때 ( 루트 노드만 지워준다 )
 			if (pos->Left == nullptr && pos->Right == nullptr)
 			{
 				_root = nullptr;
@@ -166,7 +168,7 @@ public:
 			}
 
 			// 자식이 하나일 때
-			if (pos->Left == nullptr)	// 오른족 자식만 있을 때
+			if (pos->Left == nullptr)	// 오른쪽 자식만 있을 때
 			{
 				_root = pos->Right;		// 루트 노드 변경하기
 				_root->Parent = nullptr;	// 부모 노드 없애기
@@ -190,7 +192,7 @@ public:
 			}
 			// 자식이 2개일 때
 			// 왼쪽에서 max값을 찾는다
-			// 찾은 값을 root와 바꾸고 찾은 값이 있던 노드를 지운다.
+			// 찾은 값을 root와 바꾸고 찾은 값이 있던 노드를 지운다. ( 단말 노드 하나를 루트노드로 바꾼다 )
 			Node* successor = _root->Left;
 
 			while (successor->Right != nullptr)	// 루트 기준 왼쪽 노드 중 값이 가장 큰 노드를 successor를 넣는다.
@@ -233,11 +235,11 @@ public:
 		{
 			if (pos->Parent->Left == pos)	// 내가 부모의 왼쪽 자식일 때
 			{
-				pos->Parent->Left = pos->Right;
+				pos->Parent->Left = pos->Right;	// 부모의 왼쪽에 내 자식을 넣음
 			}
 			else										// 내가 부모의 오른쪽 자식일 때
 			{
-				pos->Parent->Right = pos->Right;
+				pos->Parent->Right = pos->Right;	// 부모의 오른족에 내 자식을 넣음
 			}
 			// 내 자식(오른쪽)의 부모를 내 부모로 바꾸어 줌
 			pos->Right->Parent = pos->Parent;
