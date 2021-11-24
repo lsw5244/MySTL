@@ -25,6 +25,9 @@
     <Filter Include="KGA\DoubleLinkedList">
       <UniqueIdentifier>{37e31660-7cbb-4576-99c0-2660c18c2816}</UniqueIdentifier>
     </Filter>
+    <Filter Include="KGA\Set">
+      <UniqueIdentifier>{ff9f2f62-ffb5-451e-9d93-4d657185ddd8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MySTL.cpp">
@@ -43,6 +46,9 @@
     </ClInclude>
     <ClInclude Include="DoubleLinkedList.h">
       <Filter>KGA\DoubleLinkedList</Filter>
+    </ClInclude>
+    <ClInclude Include="Set.h">
+      <Filter>KGA\Set</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

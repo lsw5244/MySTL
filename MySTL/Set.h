@@ -352,6 +352,10 @@ public:
 	}
 	void traverseByInOrderHelper(Node* node)
 	{
+		if (node == nullptr)
+		{
+			return;
+		}
 		traverseByInOrderHelper(node->Left);
 		cout << node->Data << ' ';
 		traverseByInOrderHelper(node->Right);
@@ -365,7 +369,10 @@ public:
 	}
 	void traverseByPostOrderHelper(Node* node)
 	{
-
+		if (node == nullptr)
+		{
+			return;
+		}
 		traverseByPostOrderHelper(node->Left);
 		traverseByPostOrderHelper(node->Right);
 		cout << node->Data << ' ';
