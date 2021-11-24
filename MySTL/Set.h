@@ -25,6 +25,14 @@ class Set
 		Node* Left = nullptr;
 	};
 public:
+	Set() = default;
+	~Set()
+	{
+		clear();
+		_root = nullptr;
+		_size = 0;
+	}
+
 	// 트리의 높이
 	// 너비우선(BFS)
 	int height() const
